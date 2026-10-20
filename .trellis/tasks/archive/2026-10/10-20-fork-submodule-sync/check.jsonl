@@ -1,0 +1,4 @@
+{"file":".trellis/spec/third_party/mujoco_viewer/frontend/mujoco-compatibility.md","reason":"Camera and dependency checks remain required after publication"}
+{"file":".trellis/spec/packages/unitree_cpp/backend/quality-guidelines.md","reason":"Unitree verification conventions"}
+{"file":".trellis/spec/packages/unitree_cpp/backend/build-compatibility.md","reason":"Current fork/build metadata and no-upgrade contract"}
+{"file":".trellis/tasks/10-20-fork-submodule-sync/research/current-state.md","reason":"Exact fork/base refs and patch integration invariants"}

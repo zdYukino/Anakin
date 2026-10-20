@@ -1,0 +1,4 @@
+{"file":".trellis/spec/third_party/mujoco_viewer/frontend/index.md","reason":"Viewer package conventions and compatibility contract"}
+{"file":".trellis/spec/third_party/mujoco_viewer/frontend/mujoco-compatibility.md","reason":"Preserve camera API and exact MuJoCo dependency behavior while migrating persistence"}
+{"file":".trellis/spec/packages/unitree_cpp/backend/index.md","reason":"Unitree package conventions"}
+{"file":".trellis/tasks/10-20-fork-submodule-sync/research/current-state.md","reason":"Verified fork refs, source ownership, dirty-state constraints and duplicate patch installation paths"}
