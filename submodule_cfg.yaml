@@ -17,6 +17,8 @@ mujoco_viewer:
 unitree_cpp:
   install: false
   path: packages/unitree_cpp
+  patches:
+    - ../../third_party/patches/unitree_cpp.patch
 
 
 # For OmniH2O, motionlib controller

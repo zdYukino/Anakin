@@ -20,7 +20,19 @@ packages = ["robojudo"]
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+mujoco-python-viewer = { path = "third_party/mujoco_viewer", editable = true }
+unitree-cpp = { path = "packages/unitree_cpp" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
 [project.optional-dependencies]
+sim = ["mujoco-python-viewer"]
+unitree = ["unitree-cpp"]
 dev = [
     "pre-commit==4.3.0",
     "ruff==0.12.7",

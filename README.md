@@ -165,6 +165,35 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -e .
 ```
 
+Alternatively, use uv to create a Python 3.11 environment and install the project
+with the exact dependency versions in `uv.lock`:
+
+```bash
+uv python install 3.11
+uv sync --locked --python 3.11
+source .venv/bin/activate  # Linux / macOS
+```
+
+The uv configuration uses CPU-only PyTorch. After changing dependencies in
+`requirements.txt` or `pyproject.toml`, run `uv lock` and commit the updated
+`uv.lock`. Optional submodules below are installed separately.
+
+For the uv-managed MuJoCo viewer and Unitree C++ binding, first install the
+official Unitree SDK2 to `/usr/local` (see [Unitree setup](docs/unitree_setup.md)),
+then initialize the pinned submodules and apply their patches once on a fresh checkout:
+
+```bash
+git submodule update --init third_party/mujoco_viewer packages/unitree_cpp
+git -C third_party/mujoco_viewer apply ../patches/mujoco_viewer.patch
+git -C packages/unitree_cpp apply ../../third_party/patches/unitree_cpp.patch
+uv sync --locked --python 3.11 --extra sim --extra unitree
+```
+
+Keep these extras on subsequent `uv sync` / `uv run` commands to retain both
+modules. For example, use `uv run --locked --extra sim --extra unitree python scripts/run_pipeline.py`
+for the default simulation. The viewer is editable; rebuild the native binding
+after changing its sources with `uv sync --locked --extra sim --extra unitree --reinstall-package unitree-cpp`.
+
 ## 2️⃣ Install Optional Modules
 
 RoboJuDo is a **plug-and-play framework**. After a minimal default installation, you can selectively configure and install only the modules you need.

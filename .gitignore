@@ -132,3 +132,10 @@ assets/motions
 logs
 MUJOCO_LOG.TXT
 assets/resources
+
+# Local AI tooling (Trellis / CodeGraph)
+/.trellis/
+/.codegraph/
+/.agents/
+/.codex/
+/AGENTS.md
