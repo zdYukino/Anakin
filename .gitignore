@@ -133,9 +133,9 @@ logs
 MUJOCO_LOG.TXT
 assets/resources
 
-# Local AI tooling (Trellis / CodeGraph)
-/.trellis/
-/.codegraph/
-/.agents/
-/.codex/
+# Hidden directories, except Trellis
+.*/
+!.trellis/
+
+# Local AI tooling instructions
 /AGENTS.md
