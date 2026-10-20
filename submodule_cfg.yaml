@@ -18,22 +18,6 @@ unitree_cpp:
   # The scikit-build-core compatibility fix is included in the fork commit.
 
 
-# For OmniH2O, motionlib controller
-phc:
-  install: false
-  path: third_party/phc
-  patches: 
-    # Patch for useless import and bugfix
-    - ../patches/phc.patch
-    # [Optional] Windows Platform patch, for speed up multi-process
-    # - ../patches/phc-win.patch 
-  addons:
-    # Addon for 29 dof g1, as phc only support 23dof version
-    - ../patches/phc_addon_g1
-  extra_packages:
-    - third_party/phc/poselib
-
-
 # ZED Camera Odometry
 zed_proxy:
   install: false

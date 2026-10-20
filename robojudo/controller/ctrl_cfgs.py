@@ -62,28 +62,12 @@ class UnitreeCtrlCfg(JoystickCtrlCfg):
 class MotionCtrlCfg(CtrlCfg):
     class PhcCfg(Config):
         robot_config_file: str
-        robot_config: dict = {}  # PLACEHOLDER for phc robot config, to be parsed by config manager
+        robot_config: dict = {}  # Resolved internal motion robot config.
 
         def model_post_init(self, context) -> None:
-            import yaml
+            from robojudo.motion import load_robot_config
 
-            from robojudo.config import THIRD_PARTY_DIR
-
-            # parse phc configs
-            phc_dir_path = THIRD_PARTY_DIR / "phc"
-            phc_robot_config_file = self.robot_config_file
-            phc_robot_config_file_path = phc_dir_path / "phc/data/cfg" / phc_robot_config_file
-            if phc_robot_config_file_path.exists():
-                phc_robot_config_dict = yaml.safe_load(phc_robot_config_file_path.open("r"))
-                phc_robot_config_dict["asset"]["assetRoot"] = phc_dir_path.as_posix()
-                phc_robot_config_dict["asset"]["assetFileName"] = (
-                    phc_dir_path / phc_robot_config_dict["asset"]["assetFileName"]
-                ).as_posix()
-                # phc_robot_config_dict["asset"]["urdfFileName"] = (
-                #     phc_dir_path / phc_robot_config_dict["asset"]["urdfFileName"]
-                # ).as_posix()
-
-                self.robot_config = phc_robot_config_dict
+            self.robot_config = load_robot_config(self.robot_config_file)
 
     ctrl_type: str = "MotionCtrl"
 

@@ -1,0 +1,5 @@
+{"file":".trellis/spec/guides/cross-layer-thinking-guide.md","reason":"Preserve contracts across motion data, FK, config resources, controllers, packaging, and dependency cleanup."}
+{"file":".trellis/spec/guides/code-reuse-thinking-guide.md","reason":"Reuse compatible rotation/kinematics patterns without duplicating payload definitions or changing conventions."}
+{"file":".trellis/tasks/10-20-internalize-phc-runtime/research/current-state.md","reason":"Pinned PHC source, current consumers, real fixture shapes, local patch behavior, license boundaries, and cleanup inventory."}
+{"file":".trellis/spec/robojudo/backend/index.md","reason":"Framework package conventions established during internalization."}
+{"file":".trellis/spec/robojudo/backend/phc-motion-runtime.md","reason":"Preserve internal runtime contracts for any post-review implementation fixes."}

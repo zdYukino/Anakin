@@ -2,10 +2,6 @@
 	path = third_party/mujoco_viewer
 	url = git@github.com:zdYukino/mujoco-python-viewer.git
 	ignore = dirty
-[submodule "third_party/phc"]
-	path = third_party/phc
-	url = https://github.com/ZhengyiLuo/PHC
-	ignore = dirty
 [submodule "packages/zed_proxy"]
 	path = packages/zed_proxy
 	url = https://github.com/HansZ8/ZED-Proxy

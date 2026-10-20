@@ -1,0 +1,5 @@
+{"file":".trellis/spec/guides/cross-layer-thinking-guide.md","reason":"Audit end-to-end motion/controller contracts, resource resolution, and installation consistency."}
+{"file":".trellis/spec/guides/code-reuse-thinking-guide.md","reason":"Check helper reuse, complete path migration, and centralized payload/resource ownership."}
+{"file":".trellis/tasks/10-20-internalize-phc-runtime/research/current-state.md","reason":"Verify against actual source/fixture evidence and ensure numerical tests and PHC dependency removal are meaningful."}
+{"file":".trellis/spec/robojudo/backend/index.md","reason":"Final root framework quality checks and internal motion package mapping."}
+{"file":".trellis/spec/robojudo/backend/phc-motion-runtime.md","reason":"Executable playback API, FK/numerical/resource/error contracts and independent baseline verification."}
