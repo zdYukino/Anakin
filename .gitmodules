@@ -1,6 +1,6 @@
 [submodule "third_party/mujoco_viewer"]
 	path = third_party/mujoco_viewer
-	url = https://github.com/rohanpsingh/mujoco-python-viewer
+	url = git@github.com:zdYukino/mujoco-python-viewer.git
 	ignore = dirty
 [submodule "third_party/phc"]
 	path = third_party/phc
@@ -12,5 +12,5 @@
 	ignore = dirty
 [submodule "packages/unitree_cpp"]
 	path = packages/unitree_cpp
-	url = https://github.com/HansZ8/unitree_cpp
+	url = git@github.com:zdYukino/unitree_cpp.git
 	ignore = dirty

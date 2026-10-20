@@ -151,8 +151,8 @@ Robot onboard PCs are also supported.
 **Step 1: Clone the repository and create a Python environment**
 
 ```bash
-git clone https://github.com/HansZ8/RoboJuDo.git
-cd RoboJuDo/
+git clone git@github.com:zdYukino/Anakin.git
+cd Anakin/
 # Example using conda
 conda create -n robojudo python=3.11 -y
 conda activate robojudo
@@ -180,14 +180,21 @@ The uv configuration uses CPU-only PyTorch. After changing dependencies in
 
 For the uv-managed MuJoCo viewer and Unitree C++ binding, first install the
 official Unitree SDK2 to `/usr/local` (see [Unitree setup](docs/unitree_setup.md)),
-then initialize the pinned submodules and apply their patches once on a fresh checkout:
+then initialize the pinned fork submodules. These SSH repositories require GitHub
+SSH access and already include the visualization, MuJoCo compatibility and build
+metadata fixes:
 
 ```bash
 git submodule update --init third_party/mujoco_viewer packages/unitree_cpp
-git -C third_party/mujoco_viewer apply ../patches/mujoco_viewer.patch
-git -C packages/unitree_cpp apply ../../third_party/patches/unitree_cpp.patch
 uv sync --locked --python 3.11 --extra sim --extra unitree
 ```
+
+The parent repository pins commits published on the `anakin-improvements` branches
+of [zdYukino/mujoco-python-viewer](https://github.com/zdYukino/mujoco-python-viewer)
+and [zdYukino/unitree_cpp](https://github.com/zdYukino/unitree_cpp). Use the pinned
+commits from `git submodule update`, rather than switching to the fork default
+branches. The corresponding files in `third_party/patches/` are historical
+references and must not be reapplied to these fork commits.
 
 Keep these extras on subsequent `uv sync` / `uv run` commands to retain both
 modules. For example, use `uv run --locked --extra sim --extra unitree python scripts/run_pipeline.py`

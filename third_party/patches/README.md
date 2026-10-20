@@ -1,9 +1,39 @@
 # Patches for third party packages
 
-`mujoco_viewer.patch` preserves RoboJuDo's visualization changes and adapts
+## Viewer and Unitree fork commits
+
+The parent repository now pins commits from the
+[viewer fork](https://github.com/zdYukino/mujoco-python-viewer) and
+[Unitree fork](https://github.com/zdYukino/unitree_cpp), published on their
+`anakin-improvements` branches. Both commits include the former local patches.
+Initialize the submodules with `git submodule update --init` and install them
+directly; neither the uv setup nor `submodule_cfg.yaml` reapplies these patches.
+Do not apply `mujoco_viewer.patch` or `unitree_cpp.patch` to the fork commits.
+
+These two patch files remain as historical references against the original
+upstream baselines:
+
+| Patch | Original upstream base |
+| --- | --- |
+| `mujoco_viewer.patch` | [rohanpsingh/mujoco-python-viewer@31af945](https://github.com/rohanpsingh/mujoco-python-viewer/commit/31af945ef640d276a3bafe5e9b858d80c46c8509) |
+| `unitree_cpp.patch` | [HansZ8/unitree_cpp@222028c](https://github.com/HansZ8/unitree_cpp/commit/222028cdaa79cdd7c7cda6645ebd2b02d201be0c) |
+
+The viewer patch preserves RoboJuDo's visualization changes and adapts
 camera dragging and scrolling to MuJoCo 3.11+ (which removed the scene argument
 from `mjv_moveCamera`), retaining the earlier signature for older MuJoCo versions.
 It also converts the selected skin ID to an integer for double-click selection.
+
+The Unitree patch updates the deprecated `cmake.minimum-version` setting to
+`cmake.version`, allowing the original binding to build with current
+scikit-build-core releases.
+
+When inspecting a historical baseline, preserve any custom submodule edits before
+changing its checkout or applying a patch. Apply each complete patch only once
+to its original upstream base; an already modified checkout may contain the same
+changes.
+
+## MuJoCo dependency maintenance
+
 The root `requirements.txt` pins the validated engine to `mujoco==3.16.0` and
 `uv.lock` records its resolved artifacts. After changing that pin, refresh uv's
 cached root metadata and run the viewer callback regression tests:
@@ -17,20 +47,3 @@ uv run --locked --extra sim --inexact python -m unittest discover -s tests -p 't
 The explicit refresh is needed because the root dependencies are read dynamically
 from `requirements.txt`; a plain `uv lock` can reuse old project metadata. Keep
 any other extras normally used by the environment on subsequent sync commands.
-
-On a fresh checkout, apply the complete patch once after initializing the pinned
-viewer submodule:
-
-```bash
-git -C third_party/mujoco_viewer apply ../patches/mujoco_viewer.patch
-```
-
-For a checkout where an earlier visualization-only patch was already applied,
-first inspect `git -C third_party/mujoco_viewer diff` and preserve any custom
-changes. Reverse the exact earlier patch, then apply the updated patch; do not
-reset the submodule or apply the complete updated patch twice.
-
-`unitree_cpp.patch` updates the deprecated `cmake.minimum-version` setting to
-`cmake.version`, allowing the pinned binding to build with current
-scikit-build-core releases. Apply it once after initializing the submodule;
-`submodule_cfg.yaml` also registers it for the legacy installer.
