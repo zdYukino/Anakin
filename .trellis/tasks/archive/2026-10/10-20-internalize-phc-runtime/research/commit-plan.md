@@ -43,3 +43,7 @@ The latter two files were not edited by this task and are excluded entirely. Do 
 The task-only patch was successfully applied to temporary HEAD document copies before this plan was prepared. Its SHA-256 is `9b48de9e13d85ce12f8f7eb8ef6e20adfcd3d1530ec2608cdbc37470a9cf49e2`.
 
 The exact patch is stored as escaped JSON text to preserve unified-diff context whitespace without introducing trailing-whitespace errors into task artifacts. A readable materialized copy is available at `/tmp/anakin-phc-docs-before/task-only-head.patch`.
+
+## Execution
+
+The approved work commit is `0ff914f74ec9489c53320f40f4352dc1f543071d`. Staged documentation bytes matched the reviewed patch; all four existing translated working files remained byte-identical.

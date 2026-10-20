@@ -64,4 +64,4 @@ The old H2H `extra_motion_data=True` frequency/phase hook was absent from origin
 
 ## Workflow state
 
-Implementation, independent review, specs, and acceptance checks are complete. The user approved the concrete work commit and task archive on 2026-10-20. The task remains `in_progress` for executing that commit, archive, and session journal sequence. No push is part of this work.
+Implementation, independent review, specs, and acceptance checks are complete. The user approved the concrete work commit and task archive on 2026-10-20. The work commit is `0ff914f74ec9489c53320f40f4352dc1f543071d`. The authorized finish workflow archives this task and records the session journal after that work commit. No push is part of this work.

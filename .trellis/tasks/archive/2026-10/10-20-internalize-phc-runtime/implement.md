@@ -62,7 +62,7 @@ rg -n 'third_party/phc|from phc|import phc|from poselib|import poselib' robojudo
 - [x] Inspect targeted registry imports. The broad existing `test_full_imports.py` expects other optional modules; report unrelated optional-module failures separately rather than changing them to hide failures.
 - [x] Run the final Trellis check agent, capture useful contracts in specs, and update task evidence.
 - [x] Present and obtain approval for the concrete commit plan (2026-10-20: user said “提交并归档”).
-- [ ] Create the approved work commit, then archive this task and record the session. Implementation and validation are complete.
+- [x] Create the approved work commit (`0ff914f74ec9489c53320f40f4352dc1f543071d`); archive and session recording proceed through the authorized `trellis-finish-work` handoff. Implementation and validation are complete.
 
 ## Rollback points and sensitive files
 
