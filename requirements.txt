@@ -10,7 +10,7 @@ pygame
 zmq
 pynput
 pydantic
-mujoco
+mujoco==3.16.0
 msgpack
 msgpack-numpy
 colorlog
