@@ -66,3 +66,43 @@ Published current viewer and Unitree improvements to zdYukino fork anakin-improv
 ### Status
 
 [OK] **Completed**
+
+
+## Session 3: Internalize PHC motion runtime
+<!-- trellis-session: v=2 fp=eb26c59850c21ce4 -->
+
+**Date**: 2026-10-20
+**Task**: Internalize PHC motion runtime
+**Package**: robojudo
+**Branch**: `feat/internalize-phc-runtime`
+
+### Summary
+
+Internalized PHC-format motion playback for G1 23/29 DOF and H1; removed the original PHC gitlink and install links, committed the reviewed migration, and archived the task while preserving existing document translations.
+
+### Main Changes
+
+- Bundled minimal runtime, robot YAML/MJCF, source/license notices, and controller/config integration; packaged internal resources without PHC/poselib installation.
+- Added independent pinned-reference fixtures and controller/runtime tests; retained original motion paths and other submodule pins.
+- Recorded executable Trellis contracts; committed only task-specific English documentation edits while preserving four translated working copies.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `0ff914f74ec9489c53320f40f4352dc1f543071d` | feat: internalize PHC motion runtime and remove submodule |
+
+### Testing
+
+- [OK] 25 PHC tests and 6 MuJoCo viewer regressions passed; 864 independent reference arrays across 48 batches were bitwise equal.
+- [OK] Ruff 0.12.7 lint/format and compile checks passed; locked offline uv sync and final wheel/resource verification passed.
+- [OK] Final staged whitespace cleanup preserved parsed YAML values and license wording; archive context manifests validated.
+- [OK] Broad import checks retain existing limitations: no X display, optional redis missing, and optional unitree_sdk2py missing; PHC controllers and UnitreeCppEnv import.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- No migration work remains; existing document translations are left for their original work.
