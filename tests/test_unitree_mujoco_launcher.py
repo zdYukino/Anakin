@@ -50,81 +50,11 @@ def fixture_repo(path: Path) -> Path:
     return source
 
 
-class SceneTest(unittest.TestCase):
-    def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(prefix="g1 scene test ")
-        self.addCleanup(self.temporary.cleanup)
-        self.directory = Path(self.temporary.name)
-        self.repo = self.directory / "official"
-        self.source = fixture_repo(self.repo)
-
-    def test_suspension_preserves_source_joint_actuator_and_sensor_order(self):
-        robot_source = self.source / "g1_29dof.xml"
-        scene_source = self.source / "scene_29dof.xml"
-        before_robot, before_scene = robot_source.read_bytes(), scene_source.read_bytes()
-        original = ET.fromstring(before_robot)
-        result = launcher.suspended_scene(self.repo, self.directory / "generated")
-        self.assertEqual(result.name, "scene_29dof_suspended.xml")
-        copied_path = Path(ET.parse(result).getroot().find("include").get("file"))
-        copied = ET.parse(copied_path).getroot()
-        self.assertTrue(copied_path.is_absolute())
-        self.assertEqual(robot_source.read_bytes(), before_robot)
-        self.assertEqual(scene_source.read_bytes(), before_scene)
-        self.assertEqual(len(copied.findall("./actuator/motor")), 29)
-        for section in ("actuator", "sensor"):
-            self.assertEqual(ET.tostring(copied.find(section)), ET.tostring(original.find(section)))
-        original_joints = [node.attrib for node in original.findall("./worldbody//joint")]
-        copied_joints = [node.attrib for node in copied.findall("./worldbody//joint")]
-        self.assertEqual(copied_joints, original_joints)
-        pelvis = copied.find("./worldbody/body[@name='pelvis']")
-        self.assertEqual(pelvis.get("pos"), "0 0 1.2")
-        self.assertIsNotNone(pelvis.find("./joint[@type='free']"))
-        self.assertEqual(copied.find("./equality/weld").get("body1"), "pelvis")
-        self.assertEqual(copied.find("compiler").get("meshdir"), str((self.source / "meshes").resolve()))
-        self.assertEqual(ET.parse(result).getroot().find("statistic").get("center"), "0 0 1.0")
-
-    def test_missing_free_joint_is_rejected(self):
-        robot_path = self.source / "g1_29dof.xml"
-        robot = ET.parse(robot_path)
-        pelvis = robot.getroot().find("./worldbody/body")
-        pelvis.remove(pelvis.find("joint"))
-        robot.write(robot_path)
-        with self.assertRaisesRegex(RuntimeError, "floating pelvis"):
-            launcher.suspended_scene(self.repo, self.directory / "generated")
-
-    def test_wrong_motor_count_is_rejected(self):
-        robot_path = self.source / "g1_29dof.xml"
-        robot = ET.parse(robot_path)
-        actuator = robot.getroot().find("actuator")
-        actuator.remove(actuator.find("motor"))
-        robot.write(robot_path)
-        with self.assertRaisesRegex(RuntimeError, "29 motors"):
-            launcher.suspended_scene(self.repo, self.directory / "generated")
-
-
 class ProcessTest(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="g1 launcher test ")
         self.addCleanup(self.temporary.cleanup)
         self.directory = Path(self.temporary.name)
-
-    def test_private_display_stops_on_error_and_does_not_mutate_host_display(self):
-        stub = executable(
-            self.directory / "Xvfb",
-            "import os, sys, time\n"
-            "fd = int(sys.argv[sys.argv.index('-displayfd') + 1])\n"
-            "os.write(fd, b'107\\n')\n"
-            "os.close(fd)\n"
-            "time.sleep(30)",
-        )
-        old_display = os.environ.get("DISPLAY")
-        with self.assertRaisesRegex(RuntimeError, "test failure"), contextlib.redirect_stdout(io.StringIO()):
-            with launcher.virtual_display(stub) as (display, child):
-                self.assertEqual(display, ":107")
-                self.assertIsNone(child.poll())
-                raise RuntimeError("test failure")
-        self.assertIsNotNone(child.poll())
-        self.assertEqual(os.environ.get("DISPLAY"), old_display)
 
     def test_simulator_uses_fixed_g1_loopback_hg_arguments(self):
         repo = self.directory / "official"

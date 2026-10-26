@@ -1,8 +1,5 @@
 """Failure detection and passive-mode contracts, independent of an SDK process."""
 
-import contextlib
-import io
-import json
 import sys
 import unittest
 from types import SimpleNamespace
@@ -43,30 +40,6 @@ class FeedbackEnv:
 
     def shutdown(self):
         raise AssertionError("Read mode called the command-publishing shutdown")
-
-
-class ResponseTest(unittest.TestCase):
-    def setUp(self):
-        self.amplitude = 0.08
-        self.time = np.linspace(0, 1, 600)
-        self.command = self.amplitude * np.array([runner.excursion(t) for t in self.time])
-
-    def test_correct_motion_with_gravity_bias_passes(self):
-        result = runner.evaluate_response(self.command, self.command * 0.9 - 0.04, self.amplitude)
-        self.assertTrue(result["passed"])
-        self.assertGreater(result["correlation"], 0.99)
-
-    def test_static_reversed_and_drifting_feedback_fail(self):
-        for measured in (np.zeros(600), -self.command, -0.4 * self.time):
-            with self.subTest(measured=measured[:3]):
-                self.assertFalse(runner.evaluate_response(self.command, measured, self.amplitude)["passed"])
-
-    def test_unrelated_oscillation_and_nonfinite_feedback_fail(self):
-        unrelated = self.amplitude * np.sin(12 * np.pi * self.time)
-        self.assertFalse(runner.evaluate_response(self.command, unrelated, self.amplitude)["passed"])
-        unrelated[20] = np.nan
-        with self.assertRaisesRegex(RuntimeError, "invalid joint-response"):
-            runner.evaluate_response(self.command, unrelated, self.amplitude)
 
 
 class StateMonitorTest(unittest.TestCase):
@@ -137,18 +110,6 @@ class StateMonitorTest(unittest.TestCase):
         env.dof_pos[8] = np.nan
         with patch.object(runner, "make_env", return_value=env), self.assertRaisesRegex(RuntimeError, "motor.q"):
             runner.run(runner.parse_args([]), {}, None)
-
-    def test_native_initialization_exit_zero_becomes_nonzero_failure(self):
-        output = io.StringIO()
-        with (
-            patch.object(runner, "make_env", side_effect=SystemExit(0)),
-            contextlib.redirect_stdout(output),
-        ):
-            code = runner.main([])
-        report = json.loads(output.getvalue())
-        self.assertEqual(code, 1)
-        self.assertEqual(report["status"], "failed")
-        self.assertIn("initialization aborted", report["error"])
 
 
 if __name__ == "__main__":

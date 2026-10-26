@@ -117,14 +117,23 @@ class InitialStateTest(unittest.TestCase):
         for value in second.values():
             self.assertTrue(np.isfinite(value).all())
 
-    def test_feedback_is_available_when_fk_is_explicitly_disabled(self):
+    def test_feedback_mapping_and_native_target_boundary(self):
+        from unittest.mock import Mock
+
         self.cfg.forward_kinematic = None
         self.cfg.update_with_fk = False
+        self.cfg.joint2motor_idx = list(reversed(range(29)))
+        self.feedback.step = Mock()
         env = self.module.UnitreeCppEnv(self.cfg)
-        np.testing.assert_allclose(env.get_data().dof_pos, self.feedback.robot.motor_state.q)
-        np.testing.assert_allclose(env.get_data().base_pos, self.feedback.sport.position)
-        self.assertIsNone(env.fk_info)
-        self.assertIsNone(env.torso_pos)
+        np.testing.assert_allclose(env.dof_pos, self.feedback.robot.motor_state.q[::-1])
+        np.testing.assert_allclose(env.dof_vel, self.feedback.robot.motor_state.dq[::-1])
+        target = np.linspace(-0.1, 0.2, 29)
+        env.enabled = True
+        env.step(target)
+        self.feedback.step.assert_called_once_with(target.tolist())
+        env.enabled = False
+        env.step(target)
+        self.feedback.step.assert_called_once()
 
 
 if __name__ == "__main__":

@@ -80,12 +80,13 @@ The runner accepts normalized three-axis commands, repeatable `--event TIME:ACTI
 .venv/bin/python -m unittest \
   tests.test_unitree_cpp_initial_state tests.test_unitree_policy_reset \
   tests.test_pipeline_motion_resume tests.test_unitree_policy_runner tests.test_unitree_mujoco_launcher \
-  tests.test_unitree_mujoco_runner tests.test_phc_controllers
+  tests.test_unitree_mujoco_runner tests.test_unitree_remote
 ```
 
 - Initial-state tests mock only the native feedback boundary, run real headless FK, compare torso pose with an independent bare MuJoCo oracle, and have actual `MotionH2HCtrl` consume first/updated snapshots. No DDS or GUI is required.
 - Reset tests use the included real G1 recurrent JIT and verify hidden/cell/action clearing and deterministic multi-frame replay; also cover exports without reset memory.
 - Runner tests cover input overlays/reference preservation, malformed arguments, finite preload, reset acknowledgment/alignment, own-window selection, switched limits, stale/slowed feedback, actual control gaps/blends and cleanup. Meaningful live trials remain necessary for physical stability and switching claims.
+- Current focused selection and removed-test rationale: [Testing](../../../../docs/testing.md). Preserve independent PHC suites when motion code/data change. RC packet tests are memory-only; independent native CRC and real RC/hardware acceptance remain gaps.
 - Run pinned Ruff 0.12.7 lint/format and scoped whitespace checks. No standalone root type checker is configured.
 
 ## 7. Wrong vs Correct
