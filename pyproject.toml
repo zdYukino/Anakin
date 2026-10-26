@@ -14,8 +14,11 @@ requires-python = ">=3.11"
 
 dynamic = ["dependencies"]
 
-[tool.setuptools]
-packages = ["robojudo"]
+[tool.setuptools.packages.find]
+include = ["robojudo", "robojudo.*"]
+
+[tool.setuptools.package-data]
+"robojudo.motion" = ["resources/**/*.yaml", "resources/**/*.xml", "LICENSE-*", "SOURCE.md"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

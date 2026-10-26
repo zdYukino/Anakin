@@ -81,7 +81,7 @@ You can apply your own controller to control the robot using `AMOPolicy`. Just s
 
 `H2HStudentPolicy` is the policy that controls the robot using the [human2humanoid](https://github.com/LeCAR-Lab/human2humanoid).
 
-> PHC Submodule is needed for motionlib control. check README#setup.
+> The MotionLib runtime and G1/H1 kinematics resources are bundled; no PHC or poselib installation is needed. Retargeted motions and model files must still match the robot and policy.
 
 script: [h2hstudent_policy.py](../robojudo/policy/h2hstudent_policy.py)
 
@@ -89,7 +89,9 @@ script: [h2hstudent_policy.py](../robojudo/policy/h2hstudent_policy.py)
 
 For motion source:
 - `Unitree H1`: Simply use the motion retargeting pipeline from [human2humanoid](https://github.com/LeCAR-Lab/human2humanoid).
-- `Unitree G1`: As not officially supported, we use the PHC pipeline. Our submodule patch enables 29dof G1. Check [unitree_g1_29dof_fitting.yaml](../third_party/phc/phc/data/cfg/robot/unitree_g1_29dof_fitting.yaml).
+- `Unitree G1`: Use PHC-format 29-DOF motions with the [bundled runtime config](../robojudo/motion/resources/config/robot/unitree_g1_29dof.yaml). The retained [historical fitting config](../third_party/patches/phc_addon_g1/phc/data/cfg/robot/unitree_g1_29dof_fitting.yaml) is a reference for external retargeting workflows; the bundled runtime does not perform fitting or retargeting.
+
+Place H1 and G1 motion files under `assets/motions/h1/phc/` and `assets/motions/g1/phc_29/`, respectively, keeping the existing `.pkl` format. See [MotionCtrl](controller.md#controller--motionctrl).
 
 You can refer to `g1_h2h` config in [g1_cfg.py](../robojudo/config/g1/g1_cfg.py) for more details.
 
@@ -174,7 +176,7 @@ You can refer to `g1_asap` and `g1_asap_loco` config in [g1_asap_cfg.py](../robo
 
 To be noted, this is for **KungfuBot2** general model, for KungfuBot, please use [AsapPolicy](#policy--asappolicy).
 
-> PHC Submodule is needed for motionlib control. check [README](../README.md#2️⃣-install-optional-modules).
+> MotionLib playback uses the bundled runtime; no PHC or poselib installation is needed. Prepare compatible G1 23-DOF motions and a KungfuBot2 policy model.
 
 script: [kungfubot_policy.py](../robojudo/policy/kungfubot_policy.py)
 
@@ -198,8 +200,7 @@ For TwistPolicy, we implement two motion source controllers:
 
 - `MotionTwistCtrl` at [motion_twist_ctrl.py](../robojudo/controller/motion_twist_ctrl.py): 
     - get motion from local .pkl files. 
-    - this is base on the PHC MotionLib, and **uses the same motion format as PHC**. 
-        - PHC Submodule is needed. check [README](../README.md#2️⃣-install-optional-modules).
+    - uses the [bundled PHC-format runtime](../robojudo/motion/SOURCE.md), **preserving the existing motion format** without installing PHC or poselib.
     - motions from [PBHC](https://github.com/TeleHuman/PBHC) pipeline is supported,  put your motion files in `assets/motions/g1/phc/`.
 
 You can refer to `g1_twist` config in [g1_cfg.py](../robojudo/config/g1/g1_cfg.py) for test and details.

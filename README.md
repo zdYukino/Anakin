@@ -120,14 +120,14 @@ Currently, **RoboJuDo** supports the following policy–environment combinations
 |:-------:|:--------:|:-------:|:-------:|:-------:|:-------:|:-------:|
 | Unitree Official | 🖥️ 🤖 | 🖥️ 🤖 | - | [unitree_rl_gym](https://github.com/unitreerobotics/unitree_rl_gym) | [UnitreePolicy](./docs/policy.md/#policy--unitreepolicy)|  |
 | Unitree Wo Gait | 🖥️ 🤖 | - | - | [unitree_rl_lab](https://github.com/unitreerobotics/unitree_rl_lab) | [UnitreeWoGaitPolicy](./docs/policy.md/#unitreewogaitpolicy)| no gait |
-| Human2Humanoid | 🖥️ 🤖 | 🖥️ 🤖 | 🖥️ | [H2H](https://github.com/LeCAR-Lab/human2humanoid) | [H2HStudentPolicy](./docs/policy.md/#policy--h2hstudentpolicy) | Need PHC submodule |
+| Human2Humanoid | 🖥️ 🤖 | 🖥️ 🤖 | 🖥️ | [H2H](https://github.com/LeCAR-Lab/human2humanoid) | [H2HStudentPolicy](./docs/policy.md/#policy--h2hstudentpolicy) | Bundled motion runtime |
 | Smooth | 🖥️ 🤖 | 🖥️ 🤖 | 🖥️ 🤖⚠️ | [Smooth](https://github.com/zixuan417/smooth-humanoid-locomotion) |  |
 | AMO | 🖥️ 🤖 | - | - | [AMO](https://github.com/OpenTeleVision/AMO) | [AmoPolicy](./docs/policy.md/#policy--amopolicy) |  |
 | GMT | 🖥️ 🤖 | - | - | [GMT](https://github.com/zixuan417/humanoid-general-motion-tracking) |  |  |
 | HugWBC | 🖥️ 🤖 | 🖥️ 🤖 | - | [HugWBC](https://github.com/apexrl/HugWBC) | [HugWbcPolicy](./docs/policy.md/#policy--hugwbcpolicy) |  |
 | **BeyondMimic** | 🖥️ 🤖 | - | - | [whole_body_tracking](https://github.com/HybridRobotics/whole_body_tracking) | [BeyondmimicPolicy](./docs/policy.md/#policy--beyondmimicpolicy) | With&Wo SE supported |
 | **ASAP** | 🖥️ 🤖 | - | - | [ASAP](https://github.com/LeCAR-Lab/ASAP) | [AsapPolicy](./docs/policy.md/#policy--asappolicy) | deepmimic & locomotion supported |
-| KungfuBot<br>**KungfuBot2** | 🖥️ 🤖 | - | - | [PBHC](https://github.com/TeleHuman/PBHC) | [AsapPolicy](./docs/policy.md/#policy--asappolicy)<br>[KungfuBotGeneralPolicy](./docs/policy.md/#policy--kungfubotgeneralpolicy) | Need PHC submodule |
+| KungfuBot<br>**KungfuBot2** | 🖥️ 🤖 | - | - | [PBHC](https://github.com/TeleHuman/PBHC) | [AsapPolicy](./docs/policy.md/#policy--asappolicy)<br>[KungfuBotGeneralPolicy](./docs/policy.md/#policy--kungfubotgeneralpolicy) | Bundled motion runtime |
 | **TWIST** | 🖥️ 🤖 | - | - | [TWIST](https://github.com/YanjieZe/TWIST) | [TwistPolicy](./docs/policy.md/#policy--twistpolicy) |  |
 | **ProtoMotions** | 🖥️ 🤖 | - | - | [ProtoMotions](https://github.com/NVlabs/ProtoMotions) | [ProtoMotionsTrackerPolicy](./docs/policy.md/#policy--protomotionstrackerpolicy) | [nvlab doc](https://nvlabs.github.io/ProtoMotions/tutorials/workflows/g1_deployment.html) |
 | ... | ... | ... | ... | ... | ... | ... |
@@ -204,6 +204,13 @@ after changing its sources with `uv sync --locked --extra sim --extra unitree --
 ## 2️⃣ Install Optional Modules
 
 RoboJuDo is a **plug-and-play framework**. After a minimal default installation, you can selectively configure and install only the modules you need.
+
+PHC-format motion playback is included in [robojudo/motion](./robojudo/motion/SOURCE.md).
+`MotionCtrl`, `MotionH2HCtrl`, `MotionKungfuBotCtrl`, and `MotionTwistCtrl` use
+bundled G1 23/29-DOF and H1 kinematics resources; no PHC submodule or separate
+`phc`/`poselib` installation is needed. Compatible retargeted motion files and
+policy models are still required; see [MotionCtrl](./docs/controller.md#controller--motionctrl)
+for motion locations. Training and retargeting remain external workflows.
 
 ---
 
@@ -436,7 +443,7 @@ or star our repo😁
 # 🔗 Related Repo
 
 - [Unitree SDK2 Python](https://github.com/unitreerobotics/unitree_sdk2_python): used for implementing `UnitreeEnv`.
-- [PHC](https://github.com/ZhengyiLuo/PHC): used for implementing the `MotionCtrl` module for OmniH2O.
+- [PHC](https://github.com/ZhengyiLuo/PHC): source of the bundled PHC-format motion runtime; see [source and license notices](./robojudo/motion/SOURCE.md).
 - [UnitreeCpp](https://github.com/HansZ8/unitree_cpp): our pybind of `unitree_sdk2` used in `UnitreeCppEnv`.
 - [ZED Proxy](https://github.com/HansZ8/ZED-Proxy/): ZED Camera Odometry Service.
 - [ProtoMotions](https://github.com/NVlabs/ProtoMotions): GPU-accelerated simulation and learning framework by NVLabs.

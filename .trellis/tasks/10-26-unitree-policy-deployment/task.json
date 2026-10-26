@@ -1,0 +1,42 @@
+{
+  "id": "unitree-policy-deployment",
+  "name": "unitree-policy-deployment",
+  "title": "实机部署框架与官方 MuJoCo 策略闭环联调",
+  "description": "通过现有实机部署后端在官方 unitree_mujoco 上运行项目策略，修复必要集成问题并在 docs 中交付可复现运行说明和策略部署矩阵。",
+  "status": "in_progress",
+  "dev_type": "backend",
+  "scope": "official-unitree-policy-deployment",
+  "package": "robojudo",
+  "priority": "P2",
+  "creator": "zdyukino",
+  "assignee": "zdyukino",
+  "createdAt": "2026-10-26",
+  "completedAt": null,
+  "branch": "feat/internalize-phc-runtime",
+  "base_branch": "release",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [
+    "scripts/run_unitree_policy.py",
+    "robojudo/environment/unitree_cpp_env.py",
+    "robojudo/policy/unitree_policy.py",
+    "robojudo/pipeline/rl_pipeline.py",
+    "docs/unitree_policy_deployment.md",
+    "docs/data/unitree_policy_results_2026-10-26.json"
+  ],
+  "notes": "Deployment implementation,44formal CLI trials,complete asset/report audit and85-testquality gate passed. Usergoal fulfilled. Work remains unstaged; commit/archive workflow not invoked without a requested commit decision. Unrelated WIP preserved.",
+  "meta": {
+    "formal_trials": 44,
+    "test_count": 85,
+    "quality_gate": "passed",
+    "documentation": "docs/unitree_policy_deployment.md",
+    "commit_pending": true,
+    "implementation_complete": true,
+    "artifact_audit": "passed",
+    "additional_asset_files": 8
+  }
+}

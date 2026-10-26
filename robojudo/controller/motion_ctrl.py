@@ -8,13 +8,11 @@ from threading import Lock, Thread, Timer
 import numpy as np
 import torch
 from box import Box
-from phc.utils.motion_lib_base import FixHeightMode
-from phc.utils.motion_lib_real import MotionLibReal
-from poselib.poselib.skeleton.skeleton3d import SkeletonTree
 
 from robojudo.controller import Controller, ctrl_registry
 from robojudo.controller.ctrl_cfgs import MotionCtrlCfg
 from robojudo.controller.utils.motion_gui import MotionGUI
+from robojudo.motion import FixHeightMode, MotionLibReal, SkeletonTree
 from robojudo.utils.util_func_torch import to_torch
 
 logger = logging.getLogger(__name__)

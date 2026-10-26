@@ -1,0 +1,4795 @@
+{
+  "phc_commit": "f8e75fb94918140e85db9744abf1f3b7667428a1",
+  "source_url_prefix": "https://raw.githubusercontent.com/ZhengyiLuo/PHC/f8e75fb94918140e85db9744abf1f3b7667428a1/",
+  "original_source_sha256": {
+    "LICENSE": "aeb976a86efd6b8afb707fceaf36e1d77d2faad027f7fe7a00fc8c062074f0f9",
+    "phc/utils/motion_lib_real.py": "bde4fa970e30a23090c0e5040ed7b852ac4d7c54cf1fff96a4c48079fddac24f",
+    "phc/utils/motion_lib_base.py": "fd6348ecc94e851633351be155c7053ad3c10169c8c1b3f754f5681538e8b804",
+    "phc/utils/torch_humanoid_batch.py": "49335a9559bc9a79c64ff387cca27bf9dc6f4a0f1e45df8af547c25f4d73b158",
+    "phc/utils/torch_utils.py": "f242819d509c73df3d53a0c166bafa1e88b5fd2f7cae1ddcd992169a39eedd2e",
+    "phc/utils/pytorch3d_transforms.py": "74ace5e1da74b1bb023198b33747ac0da79065e3413b6766dd5d498989464a5c",
+    "phc/utils/rotation_conversions.py": "53f392f41906b09a210f56d6a2fd99c12b64c1121ed54a0b28d6572c1704cbd1",
+    "phc/utils/flags.py": "4c30e7fbc90d31d28cedcb4cb6e7bd9500c8ea135b3d46e914ff69c8f1a37dfc",
+    "poselib/poselib/core/rotation3d.py": "14057c5f44ffe633e4aa48b7a75068d75ecbeae64a4123c73a3103423baad579"
+  },
+  "effective_source_sha256": {
+    "LICENSE": "aeb976a86efd6b8afb707fceaf36e1d77d2faad027f7fe7a00fc8c062074f0f9",
+    "phc/utils/motion_lib_real.py": "e8f8d56f6031fb37edc888a7c72dc9e68a5000a42dc6e3489fb1deabeb6c4fba",
+    "phc/utils/motion_lib_base.py": "fd6348ecc94e851633351be155c7053ad3c10169c8c1b3f754f5681538e8b804",
+    "phc/utils/torch_humanoid_batch.py": "1f662043aab8a940f1c20e1e9624dfaa6bdeff9cf226ab6071cac73304d8ff8f",
+    "phc/utils/torch_utils.py": "dc825a52a48f739b29eaa9b6ce3d7927e2b74382e740f28ca6a6121542915b2e",
+    "phc/utils/pytorch3d_transforms.py": "74ace5e1da74b1bb023198b33747ac0da79065e3413b6766dd5d498989464a5c",
+    "phc/utils/rotation_conversions.py": "53f392f41906b09a210f56d6a2fd99c12b64c1121ed54a0b28d6572c1704cbd1",
+    "phc/utils/flags.py": "4c30e7fbc90d31d28cedcb4cb6e7bd9500c8ea135b3d46e914ff69c8f1a37dfc",
+    "poselib/poselib/core/rotation3d.py": "14057c5f44ffe633e4aa48b7a75068d75ecbeae64a4123c73a3103423baad579"
+  },
+  "resource_sha256": {
+    "phc/data/cfg/robot/unitree_g1_23dof_KungfuBot.yaml": "298718afc1d56138ae3228bd4aec449696a24bc00df99cae24db30e1ff8b4e8b",
+    "phc/data/assets/robot/unitree_g1/g1_23dof_lock_wrist_fitmotionONLY.xml": "e1a4260fe73077afd47518417b2d6609148b086438003d1956656ce133ae5101",
+    "phc/data/cfg/robot/unitree_g1_29dof.yaml": "5aad8aef0d8eeb9e3c38bf12c3a073349e10281f11cc5ab638332a6276ad6956",
+    "phc/data/assets/robot/unitree_g1/g1_29dof_rev_1_0.xml": "165fa7a5275745e45fa25e1bc78010c1055d81bb81c013b3c7bc8b9347a3b9c3",
+    "phc/data/cfg/robot/unitree_h1.yaml": "b8c9d16437564e0b82cd2eacb079e8a8348451b06092c53a0be7bb638c22b2c0",
+    "phc/data/assets/robot/unitree_h1/h1.xml": "ed2b709089c9b1b9825fac3162e23f63b6b20346bb155fe86e8b0376d0b4bc97"
+  },
+  "project_baseline": "3d01ec21f7e3ea590dc97159458eec951431d4d3",
+  "patch_path_at_baseline": "third_party/patches/phc.patch",
+  "patch_sha256": "a291438dc5445bb889a1e615731659f79c3a60fc8d14bcdcd18f510e5310a22c",
+  "addon_path_at_baseline": "third_party/patches/phc_addon_g1",
+  "compatibility_glue": [
+    "Only the worker process adds the temporary reference tree to sys.path; project imports are blocked.",
+    "Empty package initializers avoid unrelated package startup code.",
+    "Unused SkeletonMotion/SkeletonState imports are raising shims; skeleton metadata is MJCF body preorder.",
+    "Hydra's unused CLI main decorator is an identity decorator; DictConfig is an unused dict annotation.",
+    "Unavailable lxml is replaced only for initial XML joint/motor enumeration by ElementTree with getchildren().",
+    "The unused Manager queue in multi_thread=False is a raising sentinel; no multiprocessing service is started.",
+    "The repository's complete phc.patch is applied unchanged; all subsequent numerical source stays unchanged.",
+    "The upstream Tensor.numpy patches and torch thread mutation execute only inside the worker process."
+  ],
+  "schema_version": 1,
+  "generator_sha256": "17404f8763671be6a54d996cf2fb1458ce33350b8e37f6a119b225503d31153a",
+  "python": "3.11.17 (main, Oct 14 2026, 01:05:33) [Clang 23.1.3 ]",
+  "versions": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "torch": "2.14.1+cpu"
+  },
+  "tolerance": {
+    "pose": {
+      "atol": 3e-05,
+      "rtol": 3e-05
+    },
+    "velocity": {
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "reason": "Float32 FK/interpolation; velocity differentiation amplifies rounding. Quaternion signs are compared."
+  },
+  "derived_clips": {
+    "crop": [
+      11,
+      72
+    ],
+    "translation": [
+      0.7,
+      -0.2,
+      0.15
+    ]
+  },
+  "metadata_normalization": "Singleton curr_motion_keys scalars are serialized as one-element lists.",
+  "samples": [
+    {
+      "name": "g1_23",
+      "config": "robot/unitree_g1_23dof_KungfuBot.yaml",
+      "motion_path": "assets/motions/g1/phc/kungfubot/Horse-stance_pose.pkl",
+      "motion_sha256": "43c918e2d5fd7d79a18dfdf280198bd4652ffe675d4f7d56c55bd1d960efbfe6",
+      "clip_key": "/home/bai/ASAP/SharedMotions/fightAndSports1_subject4_150_300_cont_mask_inter0.5",
+      "input_shapes": {
+        "pose_aa": [
+          210,
+          27,
+          3
+        ],
+        "root_trans_offset": [
+          210,
+          3
+        ],
+        "dof": [
+          210,
+          23
+        ]
+      },
+      "fps": 30,
+      "node_names": [
+        "pelvis",
+        "left_hip_pitch_link",
+        "left_hip_roll_link",
+        "left_hip_yaw_link",
+        "left_knee_link",
+        "left_ankle_pitch_link",
+        "left_ankle_roll_link",
+        "right_hip_pitch_link",
+        "right_hip_roll_link",
+        "right_hip_yaw_link",
+        "right_knee_link",
+        "right_ankle_pitch_link",
+        "right_ankle_roll_link",
+        "waist_yaw_link",
+        "waist_roll_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link"
+      ],
+      "extended_node_names": [
+        "pelvis",
+        "left_hip_pitch_link",
+        "left_hip_roll_link",
+        "left_hip_yaw_link",
+        "left_knee_link",
+        "left_ankle_pitch_link",
+        "left_ankle_roll_link",
+        "right_hip_pitch_link",
+        "right_hip_roll_link",
+        "right_hip_yaw_link",
+        "right_knee_link",
+        "right_ankle_pitch_link",
+        "right_ankle_roll_link",
+        "waist_yaw_link",
+        "waist_roll_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link",
+        "left_hand_link",
+        "right_hand_link",
+        "head_link"
+      ],
+      "loads": [
+        {
+          "label": "identity",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "/home/bai/ASAP/SharedMotions/fightAndSports1_subject4_150_300_cont_mask_inter0.5"
+          ],
+          "lengths": [
+            6.9666666984558105
+          ],
+          "num_frames": [
+            210
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "identity__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "identity__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "identity__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  23
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  23
+                ],
+                "motion_aa": [
+                  20,
+                  72
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "unaligned",
+          "heading": null,
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "/home/bai/ASAP/SharedMotions/fightAndSports1_subject4_150_300_cont_mask_inter0.5"
+          ],
+          "lengths": [
+            6.9666666984558105
+          ],
+          "num_frames": [
+            210
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "unaligned__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "unaligned__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "unaligned__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  23
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  23
+                ],
+                "motion_aa": [
+                  20,
+                  72
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "yaw_0_7",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "/home/bai/ASAP/SharedMotions/fightAndSports1_subject4_150_300_cont_mask_inter0.5"
+          ],
+          "lengths": [
+            6.9666666984558105
+          ],
+          "num_frames": [
+            210
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "yaw_0_7__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "yaw_0_7__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "yaw_0_7__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  23
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  23
+                ],
+                "motion_aa": [
+                  20,
+                  72
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "two_clips",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 2,
+          "derived": true,
+          "clip_keys": [
+            "original",
+            "cropped_translated"
+          ],
+          "lengths": [
+            6.9666666984558105,
+            2.0
+          ],
+          "num_frames": [
+            210,
+            61
+          ],
+          "cases": [
+            {
+              "name": "mixed_ids",
+              "prefix": "two_clips__mixed_ids__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  6,
+                  3
+                ],
+                "root_rot": [
+                  6,
+                  4
+                ],
+                "dof_pos": [
+                  6,
+                  23
+                ],
+                "root_vel": [
+                  6,
+                  3
+                ],
+                "root_ang_vel": [
+                  6,
+                  3
+                ],
+                "dof_vel": [
+                  6,
+                  23
+                ],
+                "motion_aa": [
+                  6,
+                  72
+                ],
+                "motion_bodies": [
+                  6,
+                  17
+                ],
+                "motion_limb_weights": [
+                  6,
+                  10
+                ],
+                "rg_pos": [
+                  6,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  6,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  6,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  6,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  6,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  6,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  6,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  6,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_1",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 1,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_1__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_1__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_0",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "original"
+          ],
+          "lengths": [
+            6.9666666984558105
+          ],
+          "num_frames": [
+            210
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_0__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_0__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_3",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 3,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_3__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_3__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  23
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  23
+                ],
+                "motion_aa": [
+                  7,
+                  72
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  24,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  24,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  24,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  27,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  27,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  27,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "fixture": "g1_23.npz",
+      "fixture_sha256": "61f152c96ce8510b172c2d8250ed1685186f3b13f7baaa1ab6236a3cfe4414e3",
+      "array_count": 327
+    },
+    {
+      "name": "g1_29",
+      "config": "robot/unitree_g1_29dof.yaml",
+      "motion_path": "assets/motions/g1/phc_29/singles/0-KIT_6_WalkInCounterClockwiseCircle05_1_poses.pkl",
+      "motion_sha256": "713d6e92a8474ff4d9d1ebfb03ec4e1b5f256c10fd13e3d135b94f6c0a5338e4",
+      "clip_key": "0-KIT_6_WalkInCounterClockwiseCircle05_1_poses",
+      "input_shapes": {
+        "pose_aa": [
+          231,
+          41,
+          3
+        ],
+        "root_trans_offset": [
+          231,
+          3
+        ],
+        "dof": [
+          231,
+          37
+        ]
+      },
+      "fps": 30,
+      "node_names": [
+        "pelvis",
+        "left_hip_pitch_link",
+        "left_hip_roll_link",
+        "left_hip_yaw_link",
+        "left_knee_link",
+        "left_ankle_pitch_link",
+        "left_ankle_roll_link",
+        "right_hip_pitch_link",
+        "right_hip_roll_link",
+        "right_hip_yaw_link",
+        "right_knee_link",
+        "right_ankle_pitch_link",
+        "right_ankle_roll_link",
+        "waist_yaw_link",
+        "waist_roll_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "left_wrist_roll_link",
+        "left_wrist_pitch_link",
+        "left_wrist_yaw_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link",
+        "right_wrist_roll_link",
+        "right_wrist_pitch_link",
+        "right_wrist_yaw_link"
+      ],
+      "extended_node_names": [
+        "pelvis",
+        "left_hip_pitch_link",
+        "left_hip_roll_link",
+        "left_hip_yaw_link",
+        "left_knee_link",
+        "left_ankle_pitch_link",
+        "left_ankle_roll_link",
+        "right_hip_pitch_link",
+        "right_hip_roll_link",
+        "right_hip_yaw_link",
+        "right_knee_link",
+        "right_ankle_pitch_link",
+        "right_ankle_roll_link",
+        "waist_yaw_link",
+        "waist_roll_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "left_wrist_roll_link",
+        "left_wrist_pitch_link",
+        "left_wrist_yaw_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link",
+        "right_wrist_roll_link",
+        "right_wrist_pitch_link",
+        "right_wrist_yaw_link",
+        "left_hand_link",
+        "right_hand_link",
+        "head_link"
+      ],
+      "loads": [
+        {
+          "label": "identity",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_6_WalkInCounterClockwiseCircle05_1_poses"
+          ],
+          "lengths": [
+            7.666666507720947
+          ],
+          "num_frames": [
+            231
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "identity__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "identity__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "identity__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  29
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  29
+                ],
+                "motion_aa": [
+                  20,
+                  90
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "unaligned",
+          "heading": null,
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_6_WalkInCounterClockwiseCircle05_1_poses"
+          ],
+          "lengths": [
+            7.666666507720947
+          ],
+          "num_frames": [
+            231
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "unaligned__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "unaligned__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "unaligned__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  29
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  29
+                ],
+                "motion_aa": [
+                  20,
+                  90
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "yaw_0_7",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_6_WalkInCounterClockwiseCircle05_1_poses"
+          ],
+          "lengths": [
+            7.666666507720947
+          ],
+          "num_frames": [
+            231
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "yaw_0_7__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "yaw_0_7__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "yaw_0_7__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  29
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  29
+                ],
+                "motion_aa": [
+                  20,
+                  90
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "two_clips",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 2,
+          "derived": true,
+          "clip_keys": [
+            "original",
+            "cropped_translated"
+          ],
+          "lengths": [
+            7.666666507720947,
+            2.0
+          ],
+          "num_frames": [
+            231,
+            61
+          ],
+          "cases": [
+            {
+              "name": "mixed_ids",
+              "prefix": "two_clips__mixed_ids__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  6,
+                  3
+                ],
+                "root_rot": [
+                  6,
+                  4
+                ],
+                "dof_pos": [
+                  6,
+                  29
+                ],
+                "root_vel": [
+                  6,
+                  3
+                ],
+                "root_ang_vel": [
+                  6,
+                  3
+                ],
+                "dof_vel": [
+                  6,
+                  29
+                ],
+                "motion_aa": [
+                  6,
+                  90
+                ],
+                "motion_bodies": [
+                  6,
+                  17
+                ],
+                "motion_limb_weights": [
+                  6,
+                  10
+                ],
+                "rg_pos": [
+                  6,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  6,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  6,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  6,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  6,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  6,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  6,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  6,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_1",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 1,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_1__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_1__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_0",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "original"
+          ],
+          "lengths": [
+            7.666666507720947
+          ],
+          "num_frames": [
+            231
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_0__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_0__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_3",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 3,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_3__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_3__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  29
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  29
+                ],
+                "motion_aa": [
+                  7,
+                  90
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  30,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  30,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  30,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  33,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  33,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  33,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "fixture": "g1_29.npz",
+      "fixture_sha256": "b3094846aaa7204dd415374781b5f57bce8e94985eef2d350a160d833bfe9678",
+      "array_count": 327
+    },
+    {
+      "name": "h1",
+      "config": "robot/unitree_h1.yaml",
+      "motion_path": "assets/motions/h1/phc/singles/0-KIT_572_punch_right01_poses.pkl",
+      "motion_sha256": "f946ac30c269721d29a16e34ef321a8d4a7741065e7dca5f6c3a3fe9449a696e",
+      "clip_key": "0-KIT_572_punch_right01_poses",
+      "input_shapes": {
+        "pose_aa": [
+          158,
+          25,
+          3
+        ],
+        "root_trans_offset": [
+          158,
+          3
+        ],
+        "dof": [
+          158,
+          19
+        ]
+      },
+      "fps": 30,
+      "node_names": [
+        "pelvis",
+        "left_hip_yaw_link",
+        "left_hip_roll_link",
+        "left_hip_pitch_link",
+        "left_knee_link",
+        "left_ankle_link",
+        "right_hip_yaw_link",
+        "right_hip_roll_link",
+        "right_hip_pitch_link",
+        "right_knee_link",
+        "right_ankle_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link"
+      ],
+      "extended_node_names": [
+        "pelvis",
+        "left_hip_yaw_link",
+        "left_hip_roll_link",
+        "left_hip_pitch_link",
+        "left_knee_link",
+        "left_ankle_link",
+        "right_hip_yaw_link",
+        "right_hip_roll_link",
+        "right_hip_pitch_link",
+        "right_knee_link",
+        "right_ankle_link",
+        "torso_link",
+        "left_shoulder_pitch_link",
+        "left_shoulder_roll_link",
+        "left_shoulder_yaw_link",
+        "left_elbow_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link",
+        "left_hand_link",
+        "right_hand_link",
+        "head_link"
+      ],
+      "loads": [
+        {
+          "label": "identity",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_572_punch_right01_poses"
+          ],
+          "lengths": [
+            5.233333110809326
+          ],
+          "num_frames": [
+            158
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "identity__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "identity__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "identity__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  19
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  19
+                ],
+                "motion_aa": [
+                  20,
+                  60
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "unaligned",
+          "heading": null,
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_572_punch_right01_poses"
+          ],
+          "lengths": [
+            5.233333110809326
+          ],
+          "num_frames": [
+            158
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "unaligned__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "unaligned__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "unaligned__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  19
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  19
+                ],
+                "motion_aa": [
+                  20,
+                  60
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "yaw_0_7",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": false,
+          "clip_keys": [
+            "0-KIT_572_punch_right01_poses"
+          ],
+          "lengths": [
+            5.233333110809326
+          ],
+          "num_frames": [
+            158
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "yaw_0_7__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "yaw_0_7__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "future",
+              "prefix": "yaw_0_7__future__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  20,
+                  3
+                ],
+                "root_rot": [
+                  20,
+                  4
+                ],
+                "dof_pos": [
+                  20,
+                  19
+                ],
+                "root_vel": [
+                  20,
+                  3
+                ],
+                "root_ang_vel": [
+                  20,
+                  3
+                ],
+                "dof_vel": [
+                  20,
+                  19
+                ],
+                "motion_aa": [
+                  20,
+                  60
+                ],
+                "motion_bodies": [
+                  20,
+                  17
+                ],
+                "motion_limb_weights": [
+                  20,
+                  10
+                ],
+                "rg_pos": [
+                  20,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  20,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  20,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  20,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  20,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  20,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "two_clips",
+          "heading": [
+            0.0,
+            0.0,
+            0.34289780745545134,
+            0.9393727128473789
+          ],
+          "start_idx": 0,
+          "count": 2,
+          "derived": true,
+          "clip_keys": [
+            "original",
+            "cropped_translated"
+          ],
+          "lengths": [
+            5.233333110809326,
+            2.0
+          ],
+          "num_frames": [
+            158,
+            61
+          ],
+          "cases": [
+            {
+              "name": "mixed_ids",
+              "prefix": "two_clips__mixed_ids__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  6,
+                  3
+                ],
+                "root_rot": [
+                  6,
+                  4
+                ],
+                "dof_pos": [
+                  6,
+                  19
+                ],
+                "root_vel": [
+                  6,
+                  3
+                ],
+                "root_ang_vel": [
+                  6,
+                  3
+                ],
+                "dof_vel": [
+                  6,
+                  19
+                ],
+                "motion_aa": [
+                  6,
+                  60
+                ],
+                "motion_bodies": [
+                  6,
+                  17
+                ],
+                "motion_limb_weights": [
+                  6,
+                  10
+                ],
+                "rg_pos": [
+                  6,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  6,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  6,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  6,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  6,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  6,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  6,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  6,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_1",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 1,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_1__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_1__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_0",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 0,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "original"
+          ],
+          "lengths": [
+            5.233333110809326
+          ],
+          "num_frames": [
+            158
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_0__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_0__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "switch_3",
+          "heading": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "start_idx": 3,
+          "count": 1,
+          "derived": true,
+          "clip_keys": [
+            "cropped_translated"
+          ],
+          "lengths": [
+            2.0
+          ],
+          "num_frames": [
+            61
+          ],
+          "cases": [
+            {
+              "name": "boundaries",
+              "prefix": "switch_3__boundaries__",
+              "has_offset": false,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "offsets",
+              "prefix": "switch_3__offsets__",
+              "has_offset": true,
+              "fields": {
+                "root_pos": [
+                  7,
+                  3
+                ],
+                "root_rot": [
+                  7,
+                  4
+                ],
+                "dof_pos": [
+                  7,
+                  19
+                ],
+                "root_vel": [
+                  7,
+                  3
+                ],
+                "root_ang_vel": [
+                  7,
+                  3
+                ],
+                "dof_vel": [
+                  7,
+                  19
+                ],
+                "motion_aa": [
+                  7,
+                  60
+                ],
+                "motion_bodies": [
+                  7,
+                  17
+                ],
+                "motion_limb_weights": [
+                  7,
+                  10
+                ],
+                "rg_pos": [
+                  7,
+                  20,
+                  3
+                ],
+                "rb_rot": [
+                  7,
+                  20,
+                  4
+                ],
+                "body_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "body_ang_vel": [
+                  7,
+                  20,
+                  3
+                ],
+                "rg_pos_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "rg_rot_t": [
+                  7,
+                  23,
+                  4
+                ],
+                "body_vel_t": [
+                  7,
+                  23,
+                  3
+                ],
+                "body_ang_vel_t": [
+                  7,
+                  23,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "fixture": "h1.npz",
+      "fixture_sha256": "78af3773a314b6b91cdbfe0f3206687522a84e509e217051f3d05f35dbca3a8e",
+      "array_count": 327
+    }
+  ]
+}

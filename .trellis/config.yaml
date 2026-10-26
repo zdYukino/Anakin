@@ -162,9 +162,8 @@ packages:
   third_party/mujoco_viewer:
     path: third_party/mujoco_viewer
     type: submodule
-  third_party/phc:
-    path: third_party/phc
-    type: submodule
+  robojudo:
+    path: robojudo
   packages/zed_proxy:
     path: packages/zed_proxy
     type: submodule

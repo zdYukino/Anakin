@@ -21,6 +21,12 @@ class UnitreePolicy(Policy):
 
     def reset(self):
         self.timestep: int = 0
+        self.last_action = np.zeros(self.num_actions)
+        # Exported recurrent policies keep state across forward calls, including
+        # pipeline dry runs. A new episode must start with clean LSTM memory.
+        reset_memory = getattr(self.model, "reset_memory", None)
+        if callable(reset_memory):
+            reset_memory()
 
         self._init_history(np.zeros(self.history_obs_size))
 
@@ -37,7 +43,7 @@ class UnitreePolicy(Policy):
         for key in ctrl_data.keys():
             if key in ["JoystickCtrl", "UnitreeCtrl"]:
                 axes = ctrl_data[key]["axes"]
-                lx, ly, rx, ry = axes["LeftX"], axes["LeftY"], axes["RightX"], axes["RightY"]
+                lx, ly, rx, _ry = axes["LeftX"], axes["LeftY"], axes["RightX"], axes["RightY"]
 
                 commands[0] = command_remap(ly, self.commands_map[0])
                 commands[1] = command_remap(lx, self.commands_map[1])

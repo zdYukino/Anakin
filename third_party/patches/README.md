@@ -32,6 +32,19 @@ changing its checkout or applying a patch. Apply each complete patch only once
 to its original upstream base; an already modified checkout may contain the same
 changes.
 
+## PHC migration references
+
+PHC-format playback and the G1 23/29-DOF and H1 kinematics resources now live
+in [`robojudo/motion`](../../robojudo/motion/SOURCE.md). Runtime installation
+does not clone PHC, install poselib, or apply the PHC patches/addons.
+
+`phc.patch`, `phc-win.patch`, and `phc_addon_g1/` remain historical inputs for
+the pinned-reference numerical tests and external retargeting research. The
+reference baseline is PHC commit
+[`f8e75fb94918140e85db9744abf1f3b7667428a1`](https://github.com/ZhengyiLuo/PHC/commit/f8e75fb94918140e85db9744abf1f3b7667428a1).
+Fitting-only YAML files in the old addon are not part of the playback package;
+using them in an external workflow still requires that workflow's dependencies.
+
 ## MuJoCo dependency maintenance
 
 The root `requirements.txt` pins the validated engine to `mujoco==3.16.0` and

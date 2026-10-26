@@ -1,0 +1,226 @@
+{
+  "date": "2026-10-26",
+  "scope": "read-only offline additional asset routing audit; no DDS/simulator/GUI",
+  "registered_configs": [
+    "g1",
+    "g1_real",
+    "g1_switch",
+    "g1_locomimic",
+    "g1_h2h",
+    "g1_beyondmimic",
+    "g1_beyondmimic_with_ctrl",
+    "g1_asap",
+    "g1_asap_loco",
+    "g1_kungfubot2",
+    "g1_twist",
+    "g1_switch_beyondmimic",
+    "g1_protomotions_tracker",
+    "g1_protomotions_tracker_real",
+    "g1_dev",
+    "g1_locomimic_beyondmimic",
+    "g1_locomimic_asap",
+    "g1_locomimic_beyondmimic_real",
+    "g1_locomimic_asap_real",
+    "g1_locomimic_asap_full",
+    "h1",
+    "h1_real",
+    "h1_switch",
+    "h1_h2h",
+    "h1_dev"
+  ],
+  "policy_registry": [
+    "UnitreePolicy",
+    "UnitreeWoGaitPolicy",
+    "SmoothPolicy",
+    "H2HStudentPolicy",
+    "AMOPolicy",
+    "BeyondMimicPolicy",
+    "AsapPolicy",
+    "AsapLocoPolicy",
+    "KungfuBotGeneralPolicy",
+    "TwistPolicy",
+    "ProtoMotionsTrackerPolicy",
+    "UnitreePolicy",
+    "UnitreeWoGaitPolicy",
+    "SmoothPolicy"
+  ],
+  "assets": [
+    {
+      "path": "assets/models/g1/unitree/policy_wo_gait.pt",
+      "bytes": 1669152,
+      "policy_class": "UnitreeWoGaitPolicy",
+      "policy_config": "G1UnitreeWoGaitPolicyCfg",
+      "registered_policy_type": true,
+      "default_registered_config_names": [],
+      "probe": "offline_inference_pass",
+      "observation_shape": [
+        480
+      ],
+      "action_shape": [
+        29
+      ],
+      "action_finite": true,
+      "action_max_abs": 0.1033492237329483,
+      "jit_schema": "forward(__torch__.isaaclab_rl.rsl_rl.exporter._TorchPolicyExporter self, Tensor x) -> Tensor",
+      "model_input_parameters": {
+        "actor.0.weight": [
+          512,
+          480
+        ],
+        "actor.2.weight": [
+          256,
+          512
+        ],
+        "actor.4.weight": [
+          128,
+          256
+        ],
+        "actor.6.weight": [
+          29,
+          128
+        ]
+      },
+      "commands": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "assets/models/g1/smooth/for_test-2000-jit.pt",
+      "bytes": 957164,
+      "policy_class": "SmoothPolicy",
+      "policy_config": "G1SmoothPolicyCfg",
+      "registered_policy_type": true,
+      "default_registered_config_names": [],
+      "probe": "offline_inference_pass",
+      "observation_shape": [
+        853
+      ],
+      "action_shape": [
+        21
+      ],
+      "action_finite": true,
+      "action_max_abs": 0.21294604241847992,
+      "jit_schema": "forward(__torch__.HardwareRefNN self, Tensor obs) -> Tensor",
+      "model_input_parameters": {
+        "actor.priv_encoder.0.weight": [
+          64,
+          50
+        ],
+        "actor.priv_encoder.2.weight": [
+          20,
+          64
+        ],
+        "actor.history_encoder.encoder.0.weight": [
+          30,
+          73
+        ],
+        "actor.history_encoder.conv_layers.0.weight": [
+          20,
+          30,
+          4
+        ],
+        "actor.history_encoder.conv_layers.2.weight": [
+          10,
+          20,
+          2
+        ],
+        "actor.history_encoder.linear_output.0.weight": [
+          20,
+          30
+        ],
+        "actor.actor_backbone.0.weight": [
+          512,
+          93
+        ],
+        "actor.actor_backbone.2.weight": [
+          256,
+          512
+        ],
+        "actor.actor_backbone.4.weight": [
+          128,
+          256
+        ],
+        "actor.actor_backbone.6.weight": [
+          21,
+          128
+        ]
+      },
+      "commands": [
+        -0.5,
+        0.0,
+        -0.5
+      ]
+    },
+    {
+      "path": "assets/models/g1/gmt/pretrained.pt",
+      "present": true,
+      "bytes": 8291216,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    },
+    {
+      "path": "assets/models/g1/hugwbc/Jun26_20-12-44_3000_g1int.pt",
+      "present": true,
+      "bytes": 850875,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    },
+    {
+      "path": "assets/models/g1/hugwbc/g1_waist_interrupt_full-test_collision_pos_root-py@_model_55000.pt",
+      "present": true,
+      "bytes": 850875,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    },
+    {
+      "path": "assets/models/g1/hugwbc/g1int.pt",
+      "present": true,
+      "bytes": 850875,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    },
+    {
+      "path": "assets/models/h1/hugwbc/h1int old.pt",
+      "present": true,
+      "bytes": 776635,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    },
+    {
+      "path": "assets/models/h1/hugwbc/h1int.pt",
+      "present": true,
+      "bytes": 776635,
+      "default_registered_config_names": [],
+      "probe": "not_inferred",
+      "runtime_implementation_present": false,
+      "runtime_registry_enabled": false
+    }
+  ],
+  "dependencies": {
+    "torch": true,
+    "onnxruntime": true,
+    "omegaconf": false,
+    "hydra": false,
+    "redis": false,
+    "unitree_sdk2py": false,
+    "zmq": true
+  },
+  "absent_runtime_paths": {
+    "robojudo/policy/gmt_policy.py": true,
+    "robojudo/policy/hugwbc_policy.py": true,
+    "robojudo/policy/hilo": true,
+    "robojudo/policy/gmt": true
+  }
+}

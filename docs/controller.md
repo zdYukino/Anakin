@@ -114,26 +114,36 @@ when you press the `Ctrl+A` button, the command will be `[CTRL_A]`.
 
 `MotionCtrl` usually is used on mimic task to provide refer motion.
 
-`ctrl_data`:`dict`, the control data.
-  - `_motion_track_bodies_extend_id`: `int`: the id of the extended body.
-  - `_robot_track_bodies_extend_id`: `int`: the id of the extended body.
-  - `rg_pos_t`: `np.ndarray`: link position.
-  - `body_vel_t`: `np.ndarray`: link velocity.
-  - `root_pos`: `np.ndarray`: root position.
-  - `root_vel`: `np.ndarray`: root velocity.
-  - `root_rot`: `np.ndarray`: root rotation. w-last quat.
-  - `root_ang_vel`: `np.ndarray`: root angular velocity.
-  - `hand_pose`(Optional): `np.ndarray`: hand pose.
+Motion loading, kinematics, and time queries use the [bundled runtime](../robojudo/motion/SOURCE.md); no PHC submodule or separate `phc` / `poselib` installation is needed. The existing `phc.robot_config_file` field and PHC-format `.pkl` files remain supported.
+
+The base `MotionCtrl.get_data()` returns:
+
+- `ref_body_pos_subset`: `np.ndarray`, reference positions of selected keypoints and extension nodes.
+- `ref_body_vel_subset`: `np.ndarray`, corresponding reference velocities multiplied by the playback speed.
+- `dof_pos`: `np.ndarray`, reference robot joint angles.
+
+`MotionH2HCtrl` also returns `robot_body_pos_subset` from the environment's forward kinematics and requires an FK-enabled environment. KungfuBot and TWIST controllers organize the motion into their policy-specific future references or `action_mimic` input. Query quaternions use `xyzw` order. Existing optional hand-output hooks remain, but the current loader and samples do not provide hand data.
 
 `MotionCtrl` can be set by `MotionCtrlCfg`. For instance, `G1MotionCtrlCfg`:
 
 ```python
 G1MotionCtrlCfg(
-    motion_name="amass_all",
+    motion_name="singles/0-KIT_6_WalkInCounterClockwiseCircle05_1_poses",
+    motion_ctrl_gui=False,  # Disable the motion GUI for headless playback.
 )
 ```
 
-Your motion file should be placed in the `assets/resources/motions/{robot}/phc` directory.
+Default configurations and motion locations:
+
+| Configuration | Bundled robot config | Motion directory |
+| --- | --- | --- |
+| `G1MotionCtrlCfg` / `G1MotionH2HCtrlCfg` | `robot/unitree_g1_29dof.yaml` | `assets/motions/g1/phc_29/` |
+| `G1MotionKungfuBotCtrlCfg` / `G1MotionTwistCtrlCfg` | `robot/unitree_g1_23dof_KungfuBot.yaml` | `assets/motions/g1/phc/` |
+| `H1MotionH2HCtrlCfg` | `robot/unitree_h1.yaml` | `assets/motions/h1/phc/` |
+
+`motion_name` is the path within the motion directory without the `.pkl` suffix. Custom robot YAML files can be selected through `phc.robot_config_file`; relative model paths resolve against the YAML directory and `assetRoot`.
+
+Motion files must already be retargeted to the matching skeleton and joint order, with `pose_aa`, `root_trans_offset`, and `fps` for each clip. The runtime derives joint and body states from the poses and preserves the existing interpolation, velocities, heading, and position offsets. Compatible policy models are still required. Training, human-motion conversion, retargeting, and mesh-based height fitting remain external workflows.
 
 ## [Controller](#controller) > [BeyondMimicCtrl](#controller--beyondmimicctrl)
 
