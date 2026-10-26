@@ -160,21 +160,23 @@ class RlPipeline(Pipeline):
                         self.env.reborn()  # pyright: ignore[reportAttributeAccessIssue]
                         self.policy.reset_alignment()
                 case "[MOTION_RESET]" | "[MOTION_FADE_IN]":
+                    was_blending_out = self._blend_out_active
                     self._blend_out_active = False
                     self._blend_out_step = 0
                     self._user_fade_out = False
                     if self._has_default_pose_mode:
                         # Policy is already active — just switch target
                         # from default pose to motion (instant, no blend).
-                        logger.info(
-                            f"{command} — starting motion from frame 0"
-                        )
+                        logger.info(f"{command} — starting motion from frame 0")
                         self._set_default_pose_mode(False)
+                    elif command == "[MOTION_FADE_IN]" and not was_blending_out:
+                        # The policy is already balancing at the paused reference.
+                        # Resume its controller without returning to an open-loop
+                        # nominal pose, which would interrupt active balance.
+                        logger.info("Resuming motion with active policy control")
                     else:
                         # Legacy path: full blend-in needed.
-                        logger.info(
-                            f"{command} — re-entering blend-in phase"
-                        )
+                        logger.info(f"{command} — re-entering blend-in phase")
                         self._pending_blend_in = True
                 case "[MOTION_FADE_OUT]":
                     if self._has_default_pose_mode:
@@ -294,9 +296,7 @@ class RlPipeline(Pipeline):
             desired_motor_angle = init_motor_angle
         elif self._has_default_pose_mode:
             # Ramp to the env's default standing pose (not motion frame 0).
-            desired_motor_angle = np.array(
-                self.env.dof_cfg.default_pos, dtype=np.float32
-            )
+            desired_motor_angle = np.array(self.env.dof_cfg.default_pos, dtype=np.float32)
         else:
             desired_motor_angle = self.policy.get_init_dof_pos()
 
@@ -310,10 +310,7 @@ class RlPipeline(Pipeline):
             blend_steps = int(5.0 * self.freq)
 
         # ── Phase 1: Ramp joints to default pose ──
-        logger.warning(
-            f"prepare: phase 1 — ramp joints ({ramp_steps} steps, "
-            f"{ramp_steps / self.freq:.1f}s)"
-        )
+        logger.warning(f"prepare: phase 1 — ramp joints ({ramp_steps} steps, {ramp_steps / self.freq:.1f}s)")
         pbar = ProgressBar("Prepare: ramp joints", ramp_steps)
 
         last_step_time = time.time()
@@ -343,10 +340,7 @@ class RlPipeline(Pipeline):
         # Actions blend from raw default DOF to policy output.
         self._set_default_pose_mode(True)
 
-        logger.warning(
-            f"prepare: phase 2 — blend policy ({blend_steps} steps, "
-            f"{blend_steps / self.freq:.1f}s)"
-        )
+        logger.warning(f"prepare: phase 2 — blend policy ({blend_steps} steps, {blend_steps / self.freq:.1f}s)")
         pbar = ProgressBar("Prepare: blend policy", blend_steps)
 
         last_step_time = time.time()

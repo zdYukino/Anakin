@@ -7,6 +7,7 @@ Scope: the Python framework under `robojudo/`, including internal motion playbac
 | Guide | Purpose |
 | --- | --- |
 | [PHC Motion Runtime](./phc-motion-runtime.md) | Supported playback API, robot resources, numerical compatibility, errors, and independent reference testing |
+| [Unitree Deployment](./unitree-deployment.md) | Native initial-state/FK readiness, recurrent reset, and official-simulator closed-loop evidence |
 
 ## Pre-Development Checklist
 

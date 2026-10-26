@@ -61,6 +61,9 @@ class UnitreeCppEnv(Environment):
 
         # time.sleep(1)  # wait for unitree init
         self.self_check()
+        # Controllers are constructed before the pipeline's first reset/step.
+        # Expose a real feedback/FK snapshot as soon as the backend is ready.
+        self.update()
 
     def self_check(self):
         for _ in range(30):
@@ -142,6 +145,7 @@ class UnitreeCppEnv(Environment):
         # FK
         if self.update_with_fk:
             fk_info = self.fk()
+            self._fk_info = fk_info.copy()
             self._torso_pos = fk_info[self._torso_name]["pos"]
             if self.robot != "h1":
                 self._torso_quat = fk_info[self._torso_name]["quat"]
