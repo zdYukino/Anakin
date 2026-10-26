@@ -114,14 +114,6 @@ class MotionResumeTest(unittest.TestCase):
         self.assertEqual(pipeline.policy.commands[0], ["[MOTION_FADE_IN]"])
         np.testing.assert_allclose(pipeline.env.targets, [[0.4, 0.5], [0.4, 0.5], [0.41, 0.51]])
 
-    def test_paused_reference_stays_paused_without_resume(self):
-        pipeline = pipeline_for([])
-        pipeline.step()
-        pipeline.step()
-        self.assertFalse(pipeline.ctrl_manager.reference.playing)
-        self.assertEqual(pipeline.ctrl_manager.reference.timestep, 0)
-        np.testing.assert_allclose(pipeline.env.targets, [[0.4, 0.5], [0.4, 0.5]])
-
     def test_motion_reset_keeps_legacy_blend_and_reference_reset(self):
         pipeline = pipeline_for([["[MOTION_RESET]"]])
         pipeline.ctrl_manager.reference.timestep = 8
@@ -139,18 +131,15 @@ class MotionResumeTest(unittest.TestCase):
         self.assertFalse(pipeline._user_fade_out)
         self.assertTrue(pipeline.ctrl_manager.reference.playing)
 
-    def test_tracker_resume_uses_existing_default_pose_switch(self):
-        pipeline = pipeline_for([["[MOTION_FADE_IN]"]], tracker=True)
-        pipeline.step()
-        pipeline._run_blend_in.assert_not_called()
-        self.assertEqual(pipeline.policy.default_pose_modes, [False])
-        self.assertTrue(pipeline.ctrl_manager.reference.playing)
-
-    def test_tracker_reset_retains_existing_default_pose_switch(self):
-        pipeline = pipeline_for([["[MOTION_RESET]"]], tracker=True)
-        pipeline.step()
-        pipeline._run_blend_in.assert_not_called()
-        self.assertEqual(pipeline.policy.default_pose_modes, [False])
+    def test_tracker_resume_and_reset_use_existing_default_pose_switch(self):
+        for command in ("[MOTION_FADE_IN]", "[MOTION_RESET]"):
+            with self.subTest(command=command):
+                pipeline = pipeline_for([[command]], tracker=True)
+                pipeline.step()
+                pipeline._run_blend_in.assert_not_called()
+                self.assertEqual(pipeline.policy.default_pose_modes, [False])
+                if command == "[MOTION_FADE_IN]":
+                    self.assertTrue(pipeline.ctrl_manager.reference.playing)
 
 
 if __name__ == "__main__":

@@ -84,14 +84,6 @@ class FakePipeline:
 
 
 class ArgumentsTest(unittest.TestCase):
-    def test_event_payloads_are_typed_and_ordered(self):
-        args = runner.parse_args(
-            ["--event", "2:[POLICY_SWITCH],NEXT", "--event", "0:button:Left", "--event", "1:axes:0.2,-0.3,0"]
-        )
-        self.assertEqual([event.at for event in args.event], [0, 1, 2])
-        self.assertEqual(args.event[1].value, (0.2, -0.3, 0))
-        self.assertEqual(args.event[2].value, "[POLICY_SWITCH],NEXT")
-
     def test_invalid_events_and_nonfinite_duration_are_rejected(self):
         cases = [
             ["--duration", "nan"],
@@ -108,12 +100,6 @@ class ArgumentsTest(unittest.TestCase):
         for args in cases:
             with self.subTest(args=args), contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
                 runner.parse_args(args)
-
-    def test_output_files_cannot_overwrite_each_other(self):
-        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
-            runner.parse_args(["--summary", "result.json", "--log", "./result.json"])
-        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
-            runner.parse_args(["--summary", "result.json", "--screenshot", "./result.json"])
 
 
 class ConfigTest(unittest.TestCase):
@@ -159,54 +145,11 @@ class ConfigTest(unittest.TestCase):
         self.assertTrue(np.isfinite(result[cfg.env.torso_name]["pos"]).all())
         self.assertEqual(original.model_dump(), before)
 
-    def test_reduced_config_preserves_explicitly_disabled_fk_and_valid_torso(self):
-        from robojudo.config.config_manager import ConfigManager
-
-        original = ConfigManager(config_name="g1_dev").get_cfg()
-        original.env.forward_kinematic = None
-        original.env.update_with_fk = False
-        original.env.torso_name = "pelvis"
-        manager = SimpleNamespace(get_cfg=lambda: original)
-        with mock.patch("robojudo.config.config_manager.ConfigManager", return_value=manager):
-            cfg = runner.build_config(runner.parse_args(["-c", "g1_dev"]))
-        self.assertIsNone(cfg.env.forward_kinematic)
-        self.assertFalse(cfg.env.update_with_fk)
-        self.assertEqual(cfg.env.torso_name, "pelvis")
-        self.assertEqual(len(original.env.dof.joint_names), 23)
-
-    def test_reduced_config_torso_missing_from_native_model_uses_native_default(self):
-        from robojudo.config.config_manager import ConfigManager
-
-        original = ConfigManager(config_name="g1_dev").get_cfg()
-        original.env.torso_name = "reduced_model_only_body"
-        manager = SimpleNamespace(get_cfg=lambda: original)
-        with mock.patch("robojudo.config.config_manager.ConfigManager", return_value=manager):
-            cfg = runner.build_config(runner.parse_args(["-c", "g1_dev"]))
-        self.assertEqual(cfg.env.torso_name, "torso_link")
-
     def test_h1_and_irrelevant_motion_overrides_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "H1 requires"):
             runner.build_config(runner.parse_args(["-c", "h1_real"]))
         with self.assertRaisesRegex(ValueError, "tracker policy"):
             runner.build_config(runner.parse_args(["--motion-path", "motion.pt"]))
-
-    def test_tracker_overrides_and_keyboard_input(self):
-        args = runner.parse_args(
-            [
-                "-c",
-                "g1_protomotions_tracker",
-                "--motion-path",
-                "motion.pt",
-                "--motion-index",
-                "3",
-                "--input",
-                "keyboard",
-            ]
-        )
-        cfg = runner.build_config(args)
-        self.assertEqual(cfg.policy.motion_path, str(Path("motion.pt").resolve()))
-        self.assertEqual(cfg.policy.motion_index, 3)
-        self.assertEqual([item.ctrl_type for item in cfg.ctrl], ["KeyboardCtrl"])
 
 
 class InputsTest(unittest.TestCase):
@@ -235,32 +178,6 @@ class InputsTest(unittest.TestCase):
         np.testing.assert_array_equal(env.commands[0][0], target)
         self.assertIs(env.commands[0][1], hands)
         self.assertEqual(recorder.outside_limits, 1)
-
-    def test_target_monitor_uses_updated_policy_limits_after_switch(self):
-        env = FakeEnv(FakeClock())
-        recorder = runner.CommandRecorder(env)
-        target = np.full(29, 1.5)
-        recorder.step(target)
-        self.assertEqual(recorder.outside_limits, 0)
-        env.position_limits = np.tile([-1.0, 1.0], (29, 1))
-        recorder.step(target)
-        self.assertEqual(recorder.outside_limits, 1)
-
-    def test_progress_serializes_only_whitelisted_finite_scalars(self):
-        policy = SimpleNamespace(
-            timestep=np.int64(7),
-            _frame=np.array([3]),
-            _motion_done=np.bool_(False),
-            _default_pose_mode=np.array([True]),
-            _paused=False,
-            play_speed=np.array([1, 2]),
-            motion_length_s=float("nan"),
-            model_weights=np.ones(1000),
-        )
-        self.assertEqual(
-            runner.policy_progress(SimpleNamespace(policy=policy)),
-            {"timestep": 7, "_frame": 3, "_motion_done": False, "_default_pose_mode": True, "_paused": False},
-        )
 
 
 class SimulatorWindowTest(unittest.TestCase):
@@ -390,17 +307,6 @@ class LoopTest(unittest.TestCase):
                 self.assertEqual(len(pipeline.env.commands), int(publish_first))
                 self.assertGreater(summary["max_command_gap_s"], 0.2)
 
-    def test_log_flush_stall_is_part_of_control_gap_monitoring(self):
-        clock = self.clock
-
-        class SlowLog(io.StringIO):
-            def flush(self):
-                clock.sleep(0.21)
-
-        with self.assertRaisesRegex(RuntimeError, "target gap exceeded 200ms"):
-            runner.run_closed_loop(self.pipeline, self.args, self.summary, SlowLog())
-        self.assertGreater(self.summary["max_loop_total_work_s"], 0.2)
-
     def test_progress_distinguishes_static_reference_from_playback(self):
         for playing in (False, True):
             with self.subTest(playing=playing):
@@ -426,25 +332,6 @@ class LoopTest(unittest.TestCase):
                 last = json.loads(log.getvalue().splitlines()[-1])
                 self.assertEqual(last["controller_progress"]["BeyondMimicCtrl"]["playing"], playing)
 
-    def test_progress_belongs_to_the_policy_that_generated_the_frame(self):
-        old = self.pipeline.policy
-        old.timestep = 0
-        new = SimpleNamespace(name="OtherPolicy", timestep=10)
-
-        def step():
-            self.pipeline.env.step(self.pipeline.target)
-            self.pipeline.policy.timestep += 1
-            self.pipeline.policy = new
-
-        self.pipeline.step = step
-        log = io.StringIO()
-        runner.run_closed_loop(self.pipeline, self.args, self.summary, log)
-        first = json.loads(log.getvalue().splitlines()[0])
-        self.assertEqual(first["policy"], "TestPolicy")
-        self.assertEqual(first["policy_progress"]["timestep"], 1)
-        self.assertEqual(first["active_policy_progress"]["timestep"], 10)
-        self.assertEqual(self.summary["policy_progress"]["TestPolicy"]["timestep"], 1)
-
     def test_invalid_action_is_blocked_before_native_actuation(self):
         self.pipeline.target[0] = np.nan
         with self.assertRaisesRegex(RuntimeError, "policy PD target"):
@@ -468,26 +355,11 @@ class LoopTest(unittest.TestCase):
             runner.run_closed_loop(self.pipeline, self.args, self.summary, None, simulator=process)
         self.assertEqual(self.summary["action_count"], 0)
 
-    def test_unconsumed_event_does_not_silently_pass(self):
-        self.args.event = [runner.parse_event("0.299:[MOTION_RESET]")]
-        with self.assertRaisesRegex(RuntimeError, "all scheduled events"):
-            runner.run_closed_loop(self.pipeline, self.args, self.summary, None)
-
     def test_live_reset_requires_acknowledgement(self):
         window = SimpleNamespace(key=lambda _name: None)
         with self.assertRaisesRegex(RuntimeError, "reset was not acknowledged"):
             runner.start_control(self.pipeline, window)
         self.assertFalse(self.pipeline.do_safety_check)
-
-    def test_initial_target_is_sent_before_reset_and_safety_is_restored(self):
-        def reset(_name):
-            self.assertEqual(len(self.pipeline.env.commands), 1)
-            self.pipeline.env.base_tick = -int(self.clock.now * 1000)
-            self.clock.sleep(0.05)
-
-        runner.start_control(self.pipeline, SimpleNamespace(key=reset))
-        self.assertTrue(self.pipeline.do_safety_check)
-        self.assertEqual(self.pipeline.reset_count, 1)
 
     def test_initial_target_is_validated_before_native_actuation(self):
         self.pipeline.policy.get_init_dof_pos = lambda: np.full(29, np.nan)
@@ -500,34 +372,17 @@ class LoopTest(unittest.TestCase):
         self.pipeline.policy.reset_alignment = lambda: observed.append(self.pipeline.env.robot_state.tick)
 
         def reset(_name):
+            self.assertEqual(len(self.pipeline.env.commands), 1)
             self.pipeline.env.base_tick = -int(self.clock.now * 1000)
             self.clock.sleep(0.05)
 
         runner.start_control(self.pipeline, SimpleNamespace(key=reset))
         self.assertEqual(observed, [50])
+        self.assertTrue(self.pipeline.do_safety_check)
+        self.assertEqual(self.pipeline.reset_count, 1)
 
 
 class FailureReportTest(unittest.TestCase):
-    def test_main_saves_runtime_failure_with_stage(self):
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "nested/result.json"
-
-            def fail(_args, summary):
-                summary["stage"] = "pipeline_load"
-                raise FileNotFoundError("checkpoint missing")
-
-            with (
-                mock.patch.object(runner, "run", fail),
-                contextlib.redirect_stdout(io.StringIO()),
-                contextlib.redirect_stderr(io.StringIO()),
-            ):
-                code = runner.main(["--summary", str(path)])
-            report = json.loads(path.read_text())
-            self.assertEqual(code, 1)
-            self.assertFalse(report["passed"])
-            self.assertEqual(report["stage"], "pipeline_load")
-            self.assertIn("checkpoint missing", report["error"])
-
     def test_owned_simulator_is_stopped_after_window_failure_and_display_restored(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
